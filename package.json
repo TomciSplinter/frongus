@@ -1,0 +1,24 @@
+{
+  "name": "frongus-launchpad",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Launch Frongus variants on pump.fun, paired with $FRONGUS.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npx vercel dev",
+    "check": "node scripts/check.mjs",
+    "contact-sheet": "node scripts/contact-sheet.mjs contact-sheet",
+    "assets": "node scripts/make-assets.mjs"
+  },
+  "dependencies": {
+    "@pump-fun/pump-sdk": "4.3.1",
+    "@resvg/resvg-js": "^2.6.2",
+    "@solana/spl-token": "^0.4.13",
+    "@solana/web3.js": "^1.98.2",
+    "bn.js": "^5.2.2"
+  }
+}

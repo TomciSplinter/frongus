@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Frongus — launch a Frongus variant on pump.fun</title>
+  <meta name="description" content="Name a coin and get a one-of-one Frongus. Launch it on pump.fun, paired with $FRONGUS.">
+  <meta name="theme-color" content="#ECECEA">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Every coin is a Frongus.">
+  <meta property="og:description" content="Name a coin, get a one-of-one Frongus, launch it on pump.fun paired with $FRONGUS.">
+  <meta property="og:image" content="/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/img/og.png">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#studio">Skip to the launcher</a>
+
+  <header class="top">
+    <a class="brand" href="/" aria-label="Frongus home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">frongus</span>
+    </a>
+    <nav class="top-nav" aria-label="Sections">
+      <a href="#gallery">Variants</a>
+      <a href="#how">How it works</a>
+      <a href="#pair">$FRONGUS</a>
+    </nav>
+    <div class="wallet-slot">
+      <button class="btn btn-ink" id="walletBtn" type="button">Connect wallet</button>
+      <div class="wallet-menu" id="walletMenu" hidden>
+        <p class="wallet-addr" id="walletAddr"></p>
+        <p class="wallet-bal" id="walletBal"></p>
+        <button class="menu-item" type="button" id="copyAddr">Copy address</button>
+        <button class="menu-item" type="button" id="disconnect">Disconnect</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="heroTitle">
+      <h1 id="heroTitle" class="hero-title">Every coin is a Frongus.</h1>
+      <p class="hero-sub">Name a coin and a one-of-one Frongus shows up. Launch it on pump.fun, paired with $FRONGUS.</p>
+    </section>
+
+    <section class="studio" id="studio" aria-label="Launcher">
+      <div class="stage">
+        <div class="art-frame" id="artFrame">
+          <div class="art" id="art" role="img" aria-label="Your Frongus"></div>
+          <span class="art-ticker" id="artTicker" aria-hidden="true"></span>
+        </div>
+        <div class="name-slot" id="nameSlot"></div>
+        <ul class="traits" id="traits" aria-label="What makes this Frongus different"></ul>
+        <div class="stage-actions">
+          <button class="btn btn-line" type="button" id="shuffleBtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+            Shuffle
+          </button>
+          <button class="btn btn-line" type="button" id="editBtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></svg>
+            Edit traits
+          </button>
+          <button class="btn btn-line" type="button" id="saveBtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+            Save image
+          </button>
+        </div>
+      </div>
+
+      <form class="panel" id="launchForm" novalidate>
+        <div class="notice notice-warn" id="pairNotice" hidden></div>
+        <div class="name-home" id="nameHome"></div>
+
+        <label class="field field-name" id="nameField">
+          <span class="field-label">Coin name</span>
+          <input id="name" name="name" type="text" maxlength="32" autocomplete="off" spellcheck="false" placeholder="King Frongus" required>
+          <span class="field-hint" id="nameHint">Words like King, Laser, Baby or Magyar pick matching gear.</span>
+        </label>
+
+        <div class="row">
+          <label class="field field-ticker">
+            <span class="field-label">Ticker</span>
+            <span class="ticker-input"><span aria-hidden="true">$</span><input id="symbol" name="symbol" type="text" maxlength="10" autocomplete="off" spellcheck="false" placeholder="KFRONGUS" required></span>
+          </label>
+          <label class="field field-buy">
+            <span class="field-label">First buy <span class="muted">(FRONGUS, optional)</span></span>
+            <span class="buy-input">
+              <input id="devBuy" name="devBuy" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+              <button type="button" class="chip-btn" id="maxBuy" hidden>Max</button>
+            </span>
+            <span class="field-hint" id="buyHint">Paid in FRONGUS. <a href="#pair">Get FRONGUS</a></span>
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Description <span class="muted">(optional)</span></span>
+          <textarea id="description" name="description" rows="2" maxlength="300" placeholder="King Frongus is a Frongus variant, paired with $FRONGUS."></textarea>
+        </label>
+
+        <details class="more" id="linksBox">
+          <summary>Links <span class="muted">(optional)</span></summary>
+          <div class="more-body">
+            <label class="field"><span class="field-label">X</span><input id="twitter" name="twitter" type="text" autocomplete="off" placeholder="x.com/yourcoin or @handle"></label>
+            <label class="field"><span class="field-label">Telegram</span><input id="telegram" name="telegram" type="text" autocomplete="off" placeholder="t.me/yourcoin"></label>
+            <label class="field"><span class="field-label">Website</span><input id="website" name="website" type="text" autocomplete="off" placeholder="Leave empty to link back here"></label>
+          </div>
+        </details>
+
+        <details class="more" id="optionsBox">
+          <summary>Creator rewards</summary>
+          <div class="more-body">
+            <fieldset class="field">
+              <legend class="field-label">Creator fee</legend>
+              <div class="seg" role="radiogroup" id="feeSeg">
+                <label><input type="radio" name="creatorFeeBps" value="0" checked><span>Standard</span></label>
+                <label><input type="radio" name="creatorFeeBps" value="5"><span>0.05%</span></label>
+                <label><input type="radio" name="creatorFeeBps" value="25"><span>0.25%</span></label>
+                <label><input type="radio" name="creatorFeeBps" value="50"><span>0.5%</span></label>
+                <label><input type="radio" name="creatorFeeBps" value="100"><span>1%</span></label>
+              </div>
+            </fieldset>
+            <label class="check">
+              <input type="checkbox" id="holderReward" name="holderReward">
+              <span>Send creator fees to holders instead of me. This can't be changed later.</span>
+            </label>
+          </div>
+        </details>
+
+        <div class="launch">
+          <button class="btn btn-launch" type="submit" id="launchBtn">Launch coin</button>
+          <p class="launch-note" id="launchNote">Launching needs about 0.03 SOL for network rent and fees, plus your first buy.</p>
+        </div>
+        <p class="form-error" id="formError" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="gallery" id="gallery" aria-labelledby="galleryTitle">
+      <div class="section-head">
+        <h2 id="galleryTitle">Start from a variant</h2>
+        <p>Tap one to load it into the launcher, then make it yours.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <section class="how" id="how" aria-labelledby="howTitle">
+      <h2 id="howTitle">How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Name it</h3>
+          <p>Type a name. Words like King, Laser, Baby or Magyar pick matching gear. Any other name gets its own random look.</p>
+        </li>
+        <li>
+          <h3>Make it yours</h3>
+          <p>Shuffle for a new look or pick every trait yourself: 31 hats, 21 eye styles, 33 skins and 61 flags.</p>
+        </li>
+        <li>
+          <h3>Launch it</h3>
+          <p>Connect a Solana wallet and approve the transaction. Your coin goes live on pump.fun, paired with $FRONGUS.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="pair" id="pair" aria-labelledby="pairTitle">
+      <div class="pair-art" id="pairArt" aria-hidden="true"></div>
+      <div class="pair-body">
+        <h2 id="pairTitle">Paired with $FRONGUS</h2>
+        <p>Every coin launched here trades against FRONGUS instead of SOL, so buying a variant means paying in FRONGUS. Creator fees are paid out in FRONGUS too.</p>
+        <div class="ca">
+          <span class="ca-label">Contract address</span>
+          <code class="ca-value" id="caValue">2BJDwUdMbnJhRRfhacFDjrDNhxUWdzE9H6LEND89pump</code>
+          <button class="btn btn-ink btn-sm" type="button" id="copyCa">Copy</button>
+        </div>
+        <p class="pair-links">
+          <a id="linkPump" href="https://pump.fun/coin/2BJDwUdMbnJhRRfhacFDjrDNhxUWdzE9H6LEND89pump" target="_blank" rel="noopener">Buy on pump.fun</a>
+          <a id="linkDex" href="https://dexscreener.com/solana/2BJDwUdMbnJhRRfhacFDjrDNhxUWdzE9H6LEND89pump" target="_blank" rel="noopener">Chart on DEX Screener</a>
+          <a id="linkScan" href="https://solscan.io/token/2BJDwUdMbnJhRRfhacFDjrDNhxUWdzE9H6LEND89pump" target="_blank" rel="noopener">Solscan</a>
+        </p>
+        <p class="pair-status" id="pairStatus" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="mine" id="mine" aria-labelledby="mineTitle" hidden>
+      <div class="section-head">
+        <h2 id="mineTitle">Your launches</h2>
+        <p>Saved on this device.</p>
+      </div>
+      <ul class="mine-list" id="mineList"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Frongus is an independent launch tool built on pump.fun's public programs. It is not affiliated with pump.fun.</p>
+    <p>Coins launched here are memecoins: they are volatile and can go to zero. Nothing on this site is financial advice.</p>
+  </footer>
+
+  <!-- trait editor -->
+  <dialog class="editor" id="editor" aria-labelledby="editorTitle">
+    <div class="editor-head">
+      <h2 id="editorTitle">Edit traits</h2>
+      <button class="icon-btn" type="button" id="editorClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="editor-body">
+      <div class="editor-preview" id="editorPreview"></div>
+      <div class="editor-controls">
+        <div class="tabs" role="tablist" id="editorTabs"></div>
+        <div class="editor-extra" id="editorExtra"></div>
+        <div class="options" id="editorOptions" role="radiogroup"></div>
+      </div>
+    </div>
+    <div class="editor-foot">
+      <button class="btn btn-line" type="button" id="editorReset">Reset to name</button>
+      <button class="btn btn-ink" type="button" id="editorDone">Done</button>
+    </div>
+  </dialog>
+
+  <!-- wallet picker -->
+  <dialog class="sheet" id="walletPicker" aria-labelledby="walletPickerTitle">
+    <div class="sheet-head">
+      <h2 id="walletPickerTitle">Connect a wallet</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="wallet-list" id="walletList"></div>
+    <p class="sheet-note" id="walletNote"></p>
+  </dialog>
+
+  <!-- launch progress -->
+  <dialog class="sheet launch-sheet" id="launchSheet" aria-labelledby="launchTitle">
+    <div class="sheet-head">
+      <h2 id="launchTitle">Launching</h2>
+      <button class="icon-btn" type="button" id="launchClose" aria-label="Close" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="launch-art" id="launchArt"></div>
+    <ol class="progress" id="progress" aria-live="polite"></ol>
+    <p class="form-error" id="launchError" role="alert" hidden></p>
+    <div class="done" id="doneBox" hidden>
+      <div class="ca ca-tight">
+        <span class="ca-label">Your coin</span>
+        <code class="ca-value" id="doneMint"></code>
+        <button class="btn btn-ink btn-sm" type="button" id="copyMint">Copy</button>
+      </div>
+      <div class="done-actions">
+        <a class="btn btn-launch" id="donePump" target="_blank" rel="noopener">Open on pump.fun</a>
+        <a class="btn btn-line" id="doneShare" target="_blank" rel="noopener">Share on X</a>
+      </div>
+    </div>
+    <div class="sheet-foot" id="launchFoot">
+      <button class="btn btn-line" type="button" id="launchRetry" hidden>Try again</button>
+      <button class="btn btn-line" type="button" id="launchAnother" hidden>Launch another</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
